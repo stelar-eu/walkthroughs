@@ -84,7 +84,7 @@ In the left-hand panel, you may find facets to filter results with.
 Download the Python Note by clicking the button below, Open it using any *Python IDE* or *Jupyter Notebook editor*.
 
 <div style="text-align: center;">
-    <a name="button" class="btn btn-primary btn-blue btn-pill py-1 px-3" href="https://github.com/stelar-eu/walkthroughs/blob/f7d127f0d514aa8370b8c416357a6aba4f3a7f72/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/scenario1.ipynb" target="_blank" download>
+ <a name="button" class="btn btn-primary btn-blue btn-pill py-1 px-3" href="https://github.com/stelar-eu/walkthroughs/blob/main/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/scenario1.ipynb" target="_blank" download>
     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  style="margin-right: 10px;"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9h-7a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h3" /><path d="M12 15h7a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-3" /><path d="M8 9v-4a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v5a2 2 0 0 1 -2 2h-4a2 2 0 0 0 -2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4" /><path d="M11 6l0 .01" /><path d="M13 18l0 .01" /></svg>
     Download Python Notebook</a>  
 </div>
