@@ -18,7 +18,7 @@ In the left-hand panel, you may find facets to filter results with.
 
 1. Filter By Tags - Check for **`food_incidents`** or **`food safety`**.
 
-![Food Safety Forecasting]()
+<img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/images/catalog.png" alt="Data Catalog" style="width:200px;>
 
 2. Filter By Organization - Find datasets provided by **`Agroknow`**
 
