@@ -1,8 +1,3 @@
-<style>
-r { color: Red }
-o { color: Orange }
-g { color: Green }
-</style>
 
 Food safety teams have long sat on mountains of incident data-from fresh-produce contamination spikes to repeat hazards in packaged goods. Today, the game is changing: instead of just reporting what happened, we're using time-series forecasting on product-hazard data to predict, and prevent the next outbreak. Think smarter inspection schedules, targeted interventions, and resources deployed exactly when and where they're needed. What was once a dusty archive becomes a real time crystal ball for prevention and preparedness.
 
@@ -29,7 +24,7 @@ In the left-hand panel, you may find facets to filter results with.
 
 3. Select a dataset of your liking
 
-<r>*Feel free to adjust or combine additional facets if you would like to narrow the list further.*</r>
+*Feel free to adjust or combine additional facets if you would like to narrow the list further.*
 
 You may use any of the following datasets for this task.
 
