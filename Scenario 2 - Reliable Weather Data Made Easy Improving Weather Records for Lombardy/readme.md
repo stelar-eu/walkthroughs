@@ -1,13 +1,16 @@
+
 # Narrative
-*Food safety teams have long sat on mountains of incident data-from fresh-produce contamination spikes to repeat hazards in packaged goods. Today, the game is changing: instead of just reporting what happened, we're using time-series forecasting on product-hazard data to predict, and prevent the next outbreak. Think smarter inspection schedules, targeted interventions, and resources deployed exactly when and where they're needed. What was once a dusty archive becomes a real time crystal ball for prevention and preparedness.*
+*When capturing meteorogical data, in extreme weather conditions, sensors and weather stations may fail to capture accurate readings. This can lead to gaps in the data, which can affect weather forecasting and climate studies. In this scenario, we will explore how to use time-series forecasting to fill in these gaps and improve the reliability of weather data. By leveraging an example from Lombardy, Italy, we will showcase how reliables record can be manufactured with multiple methods, each one resulting in varying accuracy.*
 
 # Scenario Overview
 
-In the following walkthrough, we will explore how to use time-series forecasting to predict food safety incidents. We will leverage the STELAR platform to access datasets, perform data analysis, and store the results.
+In the following scenario, we will use interpolation and time-series imputation techniques to fill in gaps in weather data. We will use the STELAR platform to orchestrate the process, leveraging its data catalog, workflow monitoring, and lineage tracking features.
 
 ### Involved Tools from STELAR Toolkit
 
--  <a class="btn btn-outline-primary" href="/stelar/console/v1/tools/fomo" target="_blank">FOMO</a> - A tool for orchestration predictions pipelines using time-series forecasting models.
+-  <a class="btn btn-outline-primary" href="/stelar/console/v1/tools/missing-data-interpolation" target="_blank">Missing Data Interpolation</a> - Fills gaps in time-series data using inverse-distance weighted (IDW) interpolation. 
+
+-  <a class="btn btn-outline-primary" href="/stelar/console/v1/tools/ts-imputation" target="_blank">Time-Series Imputation</a> - Imputes missing values in time-series data using state-of-the-art methods like dynammo, TimesNet, and more.
 
 
 ### Involed Features from STELAR KLMS Platform
@@ -25,10 +28,14 @@ In the following walkthrough, we will explore how to use time-series forecasting
 
 ### Data Pipeline Overview
 
+Data from 4 Stations (+ Station Coordinates) --> **Missing Data Interpolation** or **TS-Imputation** --> Completed Weather Records
 
+<div style="text-align: center;">
+    <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%202%20-%20Reliable%20Weather%20Data%20Made%20Easy%20Improving%20Weather%20Records%20for%20Lombardy/images/missing_data.png" alt="Data Catalog" style="width:700px;">
+    <p><strong>Table 1</strong>: Transformation of weather data into complete weather records.</p>
+</div>
 
 <br>
-
 
 ---
 
@@ -43,13 +50,13 @@ Browse to the <a name="button" class="btn btn-primary btn-pill py-1 px-3" href="
 In the left-hand panel, you may find facets to filter results with.
 
 
-- **Filter By Tags** - Check for **`food_incidents`** or **`food safety`**.
+- **Filter By Tags** - Check for **`Weather Data`** or **`Meteo`**.
 <div style="text-align: center;">
     <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/images/tags.png" alt="Data Catalog" style="width:250px;">
     <p><strong>Figure 2</strong>: Tags Facet option in the Data Catalog.</p>
 </div>
 
-- **Filter By Organization** - Find datasets provided by **`Agroknow`**
+- **Filter By Organization** - Find datasets provided by **`ABACO Group`**
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/images/orgs.png" alt="Data Catalog" style="width:250px;">
     <p><strong>Figure 3</strong>: Owner Organization Facet option in the Data Catalog.</p>
@@ -64,8 +71,7 @@ In the left-hand panel, you may find facets to filter results with.
 
 **We suggest using any of the following datasets for this scenario.**
 
-1. <a href="/stelar/console/v1/catalog/food-safety-incidents-products-and-hazards" target="_blank">Food Incidents, Products & Hazards</a> - Time series for food incident
-
+1. <a href="/stelar/console/v1/catalog/lombardy-weather-data" target="_blank">Lombardy Weather Data</a> - Missing daily weather time-series for four Lombardy stations
 
 ---
 
@@ -84,7 +90,7 @@ In the left-hand panel, you may find facets to filter results with.
 Download the Python Note by clicking the button below, Open it using any *Python IDE* or *Jupyter Notebook editor*.
 
 <div style="text-align: center;">
-    <a name="button" class="btn btn-primary btn-blue btn-pill py-1 px-3" href="https://github.com/stelar-eu/walkthroughs/blob/f7d127f0d514aa8370b8c416357a6aba4f3a7f72/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/scenario1.ipynb" target="_blank" download>
+    <a name="button" class="btn btn-primary btn-blue btn-pill py-1 px-3" href="https://github.com/stelar-eu/walkthroughs/blob/main/Scenario%202%20-%20Reliable%20Weather%20Data%20Made%20Easy%20Improving%20Weather%20Records%20for%20Lombardy/scenario2.ipynb" target="_blank" download>
     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  style="margin-right: 10px;"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9h-7a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h3" /><path d="M12 15h7a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-3" /><path d="M8 9v-4a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v5a2 2 0 0 1 -2 2h-4a2 2 0 0 0 -2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4" /><path d="M11 6l0 .01" /><path d="M13 18l0 .01" /></svg>
     Download Python Notebook</a>  
 </div>
@@ -110,7 +116,7 @@ client = Client(
 
 3.**Select Dataset(s)**: The notebook offers a block containing declarations for instatiating local variables for the dataset(s) you selected from the Data Catalog. 
 ```python
-dataset_n = c.datasets["food-safety-incidents-products-and-hazards"]
+dataset_n = c.datasets["lombardy-weather-data"]
 print(f"Selected dataset: {dataset_n.id} | {dataset_n.title}")
 ```
 
@@ -119,7 +125,7 @@ print(f"Selected dataset: {dataset_n.id} | {dataset_n.title}")
 ```python
 process = client.processes.create(
     name="process-jsmith-food-safety-forecasting",
-    title="Food Safety Incident Forecasting"
+    title="Weather Data Interpolation and Imputation",
     organization = c.organizations["stelar-klms"],
 )
 ```
@@ -154,14 +160,14 @@ t.d(alias="d0", dataset=dataset_n)  # Use the dataset object directly
 t.o(
     output_file =  {
         # Specify the output file name and location
-        "url": "s3://klms-bucket/experiments/forecasts/forecasted_incidents.csv",
+        "url": "s3://klms-bucket/experiments/weather/completed_weather_records.csv",
         # Specify the destination dataset for this resource
         "dataset": "d0"
         # Specify the resource metadata to be published after task completion
         "resource":{
-            "name": "Food Safety Forecasted Incidents",
+            "name": "Completed Weather Records",
             "format": "csv",
-            "description": "Forecasted food safety incidents based on time-series analysis."
+            "description": "Completed weather records for Lombardy, Italy",
         }
     }
 )
