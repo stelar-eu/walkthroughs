@@ -26,6 +26,13 @@ In the following walkthrough, we will explore how to use time-series forecasting
 ### Data Pipeline Overview
 
 
+Food Incidents / Date per Products --> **FOMO** --> Predictions per Product & Date
+
+<div style="text-align: center;">
+    <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/images/forecast_data.png" alt="Data Catalog" style="width:700px;">
+    <p><strong>Table 1</strong>: Extraction of predictions from food incident data.</p>
+</div>
+
 
 <br>
 
