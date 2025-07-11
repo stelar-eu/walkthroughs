@@ -7,7 +7,7 @@ In the following walkthrough, we will explore how to use time-series forecasting
 
 ### Involved Tools from STELAR Toolkit
 
--  <a class="btn btn-outline-primary" href="/stelar/console/v1/tools/fomo" target="_blank">FOMO</a> - A tool for orchestration predictions pipelines using time-series forecasting models.
+-  <a class="btn btn-outline-primary" href="/stelar/console/v1/tool/fomo" target="_blank">FOMO</a> - A tool for orchestration predictions pipelines using time-series forecasting models.
 
 
 ### Involed Features from STELAR KLMS Platform

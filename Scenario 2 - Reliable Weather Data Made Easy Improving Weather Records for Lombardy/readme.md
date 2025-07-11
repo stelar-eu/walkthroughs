@@ -8,9 +8,9 @@ In the following scenario, we will use interpolation and time-series imputation 
 
 ### Involved Tools from STELAR Toolkit
 
--  <a class="btn btn-outline-primary" href="/stelar/console/v1/tools/missing-data-interpolation" target="_blank">Missing Data Interpolation</a> - Fills gaps in time-series data using inverse-distance weighted (IDW) interpolation. 
+-  <a class="btn btn-outline-primary" href="/stelar/console/v1/tool/missing-data-interpolation" target="_blank">Missing Data Interpolation</a> - Fills gaps in time-series data using inverse-distance weighted (IDW) interpolation. 
 
--  <a class="btn btn-outline-primary" href="/stelar/console/v1/tools/ts-imputation" target="_blank">Time-Series Imputation</a> - Imputes missing values in time-series data using state-of-the-art methods like dynammo, TimesNet, and more.
+-  <a class="btn btn-outline-primary" href="/stelar/console/v1/tool/ts-imputation" target="_blank">Time-Series Imputation</a> - Imputes missing values in time-series data using state-of-the-art methods like dynammo, TimesNet, and more.
 
 
 ### Involed Features from STELAR KLMS Platform
