@@ -1,13 +1,13 @@
-
 # Narrative
-
+*Selecting the right pesticide for crop protection is crucial for sustainable agriculture. Be leveraging a data-driven approach, farmers can make informed decisions that enhance crop yield while minimizing environmental impact. Using a database of pesticides and in combination with user requirements this scenario provides the analyst with carefully selected pesticide suggestions.*
 
 # Scenario Overview
 
+In the following scenario, we will utilize the Agri-Products Match tool to match agricultural products (pesticides) with user requirements based on a database of fertilizers and environmental conditions. 
 
 ### Involved Tools from STELAR Toolkit
 
--  <a class="btn btn-outline-primary" href="/stelar/console/v1/tool/agri-products-match" target="_blank">Agri Products Match</a> -  
+-  <a class="btn btn-outline-primary" href="/stelar/console/v1/tool/agri-products-match" target="_blank">Agri Products Match</a> - A tool that matches agricultural products with user requirements based on a database of pesticides or fertilizers and environmental conditions.
 
 
 ### Involed Features from STELAR KLMS Platform
@@ -25,11 +25,11 @@
 
 ### Data Pipeline Overview
 
-Data from 4 Stations (+ Station Coordinates) --> **Missing Data Interpolation** or **TS-Imputation** --> Completed Weather Records
+Pesticide database in Italian +  User Required Substances --> **Agri Products Match Tool** --> Matched Pesticide Products
 
 <div style="text-align: center;">
-    <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%202%20-%20Reliable%20Weather%20Data%20Made%20Easy%20Improving%20Weather%20Records%20for%20Lombardy/images/missing_data.png" alt="Data Catalog" style="width:700px;">
-    <p><strong>Table 1</strong>: Transformation of weather data into complete weather records.</p>
+    <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%203%20-%20Choosing%20the%20Right%20Pesticide%20Data-Driven%20Crop%20Protection/images/pesticides.png" alt="Data Catalog" style="width:700px;">
+    <p><strong>Table 1</strong>: Combination of user requirements and database of pesticides into actionable suggestions of pesticide products.</p>
 </div>
 
 <br>
@@ -47,7 +47,7 @@ Browse to the <a name="button" class="btn btn-primary btn-pill py-1 px-3" href="
 In the left-hand panel, you may find facets to filter results with.
 
 
-- **Filter By Tags** - Check for **`Weather Data`** or **`Meteo`**.
+- **Filter By Tags** - Check for **`Pesticides`** or **`Precision Farming`**.
 <div style="text-align: center;">
     <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/images/tags.png" alt="Data Catalog" style="width:250px;">
     <p><strong>Figure 2</strong>: Tags Facet option in the Data Catalog.</p>
@@ -68,7 +68,7 @@ In the left-hand panel, you may find facets to filter results with.
 
 **We suggest using any of the following datasets for this scenario.**
 
-1. <a href="/stelar/console/v1/catalog/lombardy-weather-data" target="_blank">Lombardy Weather Data</a> - Missing daily weather time-series for four Lombardy stations
+1. <a href="/stelar/console/v1/catalog/pesticides-input-dataset" target="_blank">Pesticides Input Data</a> - A dataset containing a database of pesticides from the Italian Ministry of Health, including information on active ingredients, toxicity, and environmental impact. Additionally it features a file annotating the pesticides used by the farmer for this indicative scenario.
 
 ---
 
@@ -87,7 +87,7 @@ In the left-hand panel, you may find facets to filter results with.
 Download the Python Note by clicking the button below, Open it using any *Python IDE* or *Jupyter Notebook editor*.
 
 <div style="text-align: center;">
-    <a name="button" class="btn btn-primary btn-blue btn-pill py-1 px-3" href="https://github.com/stelar-eu/walkthroughs/blob/main/Scenario%202%20-%20Reliable%20Weather%20Data%20Made%20Easy%20Improving%20Weather%20Records%20for%20Lombardy/scenario2.ipynb" target="_blank" download>
+    <a name="button" class="btn btn-primary btn-blue btn-pill py-1 px-3" href="https://github.com/stelar-eu/walkthroughs/blob/main/Scenario%202%20-%20Reliable%20Weather%20Data%20Made%20Easy%20Improving%20Weather%20Records%20for%20Lombardy/scenario3.ipynb" target="_blank" download>
     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  style="margin-right: 10px;"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9h-7a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h3" /><path d="M12 15h7a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-3" /><path d="M8 9v-4a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v5a2 2 0 0 1 -2 2h-4a2 2 0 0 0 -2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4" /><path d="M11 6l0 .01" /><path d="M13 18l0 .01" /></svg>
     Download Python Notebook</a>  
 </div>
@@ -113,7 +113,7 @@ client = Client(
 
 3.**Select Dataset(s)**: The notebook offers a block containing declarations for instatiating local variables for the dataset(s) you selected from the Data Catalog. 
 ```python
-dataset_n = c.datasets["lombardy-weather-data"]
+dataset_n = c.datasets["pesticides-input-dataset"]
 print(f"Selected dataset: {dataset_n.id} | {dataset_n.title}")
 ```
 
@@ -121,8 +121,8 @@ print(f"Selected dataset: {dataset_n.id} | {dataset_n.title}")
 4.**Start a new Workflow Process**: Create a new workflow process to execute the task.
 ```python
 process = client.processes.create(
-    name="process-jsmith-food-safety-forecasting",
-    title="Weather Data Interpolation and Imputation",
+    name="process-jsmith-pesticide-selection",
+    title="Pesticide Selection Process for John Smith",
     organization = c.organizations["stelar-klms"],
 )
 ```
@@ -157,14 +157,14 @@ t.d(alias="d0", dataset=dataset_n)  # Use the dataset object directly
 t.o(
     output_file =  {
         # Specify the output file name and location
-        "url": "s3://klms-bucket/experiments/weather/completed_weather_records.csv",
+        "url": "s3://klms-bucket/experiments/pesticides/matched_pesticide_products.csv",
         # Specify the destination dataset for this resource
         "dataset": "d0"
         # Specify the resource metadata to be published after task completion
         "resource":{
-            "name": "Completed Weather Records",
-            "format": "csv",
-            "description": "Completed weather records for Lombardy, Italy",
+            "name": "Matched Pesticide Products",
+            "format": "xlsx",
+            "description": "Matched pesticide products based on user requirements and pesticide database.",
         }
     }
 )
@@ -178,7 +178,7 @@ t.p(
 6.**Execute the Task**: Execute the task using the STELAR client within a workflow process.
 
 ```python
-process = c.processes["my-process"]
+process = c.processes["process-jsmith-pesticide-selection"]
 # The task is invoked in the process.
 task_obj = process.run(t)
 ```
@@ -188,14 +188,14 @@ task_obj = process.run(t)
 # Execution Monitoring
 Once the **task starts executing**, you can **monitor** its progress and status using the **STELAR UI Console**.
 
-1.**Browse** over to the <a name="button" class="btn btn-primary btn-pill py-1 px-3" href="/stelar/console/v1/processes" target="_blank">Processes</a> page and find your workflow process by its name or ID. If you used the provided notebook, the process title should be something like  `Evaluation Workflow for #your_username#`.
+1.**Browse** over to the <a name="button" class="btn btn-primary btn-pill py-1 px-3" href="/stelar/console/v1/processes" target="_blank">Processes</a> page and find your workflow process by its name or ID. If you used the provided notebook, the process title should be something like  `process-jsmith-food-safety-forecasting`.
 <div style="text-align: center;">
     <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/images/process.png" alt="Workflow Process" style="width:700px;">
     <p><strong>Figure 5</strong>: Screenshot of the workflow process page, offering access to tasks, comparison and graph generation features</p>
 </div>
   
 
-2.**Open the Task** which is last executed in the process. The task name depends on the goal of the task, but it should be something like `Food Safety Incident Forecasting`.
+2.**Open the Task** which is last executed in the process. The task name depends on the goal of the task, but it should be something like `Pesticide Matching for jsmith`.
 
 
 3.**Monitor the Task Status**: The task status will be displayed in the task details page. You can see if the task is running, completed, or failed. The page also provides information for 
@@ -219,7 +219,7 @@ Once the task is **completed succesfully**, you may track the output artifacts g
 
 **If you used the provided notebook**, the output artifacts **will be stored in the dataset you created** for  storing the results.
 
-Browse to the <a name="button" class="btn btn-primary btn-pill py-1 px-3" href="/stelar/console/v1/catalog" target="_blank">Data Catalog</a> and find the **dataset you created containing your username in the title**. Inside the dataset, you will find its resources. By clicking on the 'Action' button you **track the lineage of the resource**, which will show you the roadmap of the resource, including the task that generated it.s
+Browse to the <a name="button" class="btn btn-primary btn-pill py-1 px-3" href="/stelar/console/v1/catalog" target="_blank">Data Catalog</a> and find the **dataset you selected in the beginning of the notebook**. Inside the dataset, you will find its resources. By clicking on the 'Action' button you **track the lineage of the resource**, which will show you the roadmap of the resource, including the task that generated it.s
 
 <div style="text-align: center;">
     <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/images/tracking.png" alt="Resource Lineage Tracking" style="width:700px;">
