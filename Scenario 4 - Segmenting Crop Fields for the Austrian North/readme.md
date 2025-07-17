@@ -1,5 +1,5 @@
 # Narrative
-*Sentinel‑2’s twin polar‑orbiting satellites deliver 10–60 m multispectral imagery every five days, capturing 13 spectral bands from visible to shortwave infrared. In northern Austria, outdated field boundaries hinder irrigation planning, yield forecasting and subsidy management. Field Segmentation ingests B2, B3, B4 and B8 reflectance bands to output field polygons—homogeneous agricultural parcels visible in imagery. These polygons mask images for pixel extraction, supporting crop classification, yield prediction  and cloud‑removal via data imputation. By reducing time series and aggregating pixel values per field, segmentation boosts quality and efficiency across STELAR use cases.*
+*Sentinel-2's twin polar-orbiting satellites deliver 10-60m multispectral imagery every five days, capturing 13 spectral bands from visible to shortwave infrared. In northern Austria, outdated field boundaries hinder irrigation planning, yield forecasting and subsidy management. Field Segmentation ingests B2, B3, B4 and B8 reflectance bands to output field polygons-homogeneous agricultural parcels visible in imagery. These polygons mask images for pixel extraction, supporting crop classification, yield prediction  and cloud-removal via data imputation. By reducing time series and aggregating pixel values per field, segmentation boosts quality and efficiency across STELAR use cases.*
 
 
 # Scenario Overview
@@ -29,6 +29,7 @@ In the following scenario, we will utilize the **Field Segmentation** tool to se
 <div style="text-align: center;">
     <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%204%20-%20Segmenting%20Crop%20Fields%20for%20the%20Austrian%20North/images/field_segmentation.drawio.png" alt="Data Pipeline Overview" style="width:700px;">
     <p><strong>Figure 1</strong>: Overview of the data pipeline for segmenting crop fields</p>
+</div>
 <br>
 
 ---
