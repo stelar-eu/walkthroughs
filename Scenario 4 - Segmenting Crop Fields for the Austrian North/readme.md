@@ -44,13 +44,13 @@ Browse to the <a name="button" class="btn btn-primary btn-pill py-1 px-3" href="
 In the left-hand panel, you may find facets to filter results with.
 
 
-- **Filter By Tags** - Check for **`Pesticides`** or **`Precision Farming`**.
+- **Filter By Tags** - Check for **`Field Segmentation`** or **`Sentinel-2`**.
 <div style="text-align: center;">
     <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/images/tags.png" alt="Data Catalog" style="width:250px;">
     <p><strong>Figure 2</strong>: Tags Facet option in the Data Catalog.</p>
 </div>
 
-- **Filter By Organization** - Find datasets provided by **`ABACO Group`**
+- **Filter By Organization** - Find datasets provided by **`VISTA`**
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/images/orgs.png" alt="Data Catalog" style="width:250px;">
     <p><strong>Figure 3</strong>: Owner Organization Facet option in the Data Catalog.</p>
@@ -65,7 +65,8 @@ In the left-hand panel, you may find facets to filter results with.
 
 **We suggest using any of the following datasets for this scenario.**
 
-1. <a href="/stelar/console/v1/catalog/pesticides-input-dataset" target="_blank">Pesticides Input Data</a> - A dataset containing a database of pesticides from the Italian Ministry of Health, including information on active ingredients, toxicity, and environmental impact. Additionally it features a file annotating the pesticides used by the farmer for this indicative scenario.
+1. <a href="/stelar/console/v1/catalog/tile-33uvp-reflectance-sentinel-2-imagery-2021" target="_blank">Tile 33UVP Reflectance Sentinel 2 Imagery 2021</a> - A dataset
+containing Sentinel-2 multi-band reflectance imagery for tile 33UVP, which can be used for field segmentation.
 
 ---
 
@@ -110,7 +111,7 @@ client = Client(
 
 3.**Select Dataset(s)**: The notebook offers a block containing declarations for instatiating local variables for the dataset(s) you selected from the Data Catalog. 
 ```python
-dataset_n = c.datasets["pesticides-input-dataset"]
+dataset_n = c.datasets["Tile 33UVP Reflectance Sentinel 2 Imagery 2021"]
 print(f"Selected dataset: {dataset_n.id} | {dataset_n.title}")
 ```
 
@@ -118,8 +119,8 @@ print(f"Selected dataset: {dataset_n.id} | {dataset_n.title}")
 4.**Start a new Workflow Process**: Create a new workflow process to execute the task.
 ```python
 process = client.processes.create(
-    name="process-jsmith-pesticide-selection",
-    title="Pesticide Selection Process for John Smith",
+    name="process-jsmith-field-segmentation",
+    title="Field Segmentation Process for John Smith",
     organization = c.organizations["stelar-klms"],
 )
 ```
@@ -154,14 +155,14 @@ t.d(alias="d0", dataset=dataset_n)  # Use the dataset object directly
 t.o(
     output_file =  {
         # Specify the output file name and location
-        "url": "s3://klms-bucket/experiments/pesticides/matched_pesticide_products.csv",
+        "url": "s3://klms-bucket/experiments/lai-prediction/segmented_fields.gpkg",
         # Specify the destination dataset for this resource
         "dataset": "d0"
         # Specify the resource metadata to be published after task completion
         "resource":{
-            "name": "Matched Pesticide Products",
-            "format": "xlsx",
-            "description": "Matched pesticide products based on user requirements and pesticide database.",
+            "name": "Segmented Fields for Tile 33UVP",
+            "format": "GeoPackage",
+            "description": "Segmented crop fields for tile 33UVP using Sentinel-2 imagery",
         }
     }
 )
@@ -175,7 +176,7 @@ t.p(
 6.**Execute the Task**: Execute the task using the STELAR client within a workflow process.
 
 ```python
-process = c.processes["process-jsmith-pesticide-selection"]
+process = c.processes["process-jsmith-field-segmentation"]
 # The task is invoked in the process.
 task_obj = process.run(t)
 ```
@@ -185,14 +186,14 @@ task_obj = process.run(t)
 # Execution Monitoring
 Once the **task starts executing**, you can **monitor** its progress and status using the **STELAR UI Console**.
 
-1.**Browse** over to the <a name="button" class="btn btn-primary btn-pill py-1 px-3" href="/stelar/console/v1/processes" target="_blank">Processes</a> page and find your workflow process by its name or ID. If you used the provided notebook, the process title should be something like  `process-jsmith-food-safety-forecasting`.
+1.**Browse** over to the <a name="button" class="btn btn-primary btn-pill py-1 px-3" href="/stelar/console/v1/processes" target="_blank">Processes</a> page and find your workflow process by its name or ID. If you used the provided notebook, the process title should be something like  `process-jsmith-field-segmentation`.
 <div style="text-align: center;">
     <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/images/process.png" alt="Workflow Process" style="width:700px;">
     <p><strong>Figure 5</strong>: Screenshot of the workflow process page, offering access to tasks, comparison and graph generation features</p>
 </div>
   
 
-2.**Open the Task** which is last executed in the process. The task name depends on the goal of the task, but it should be something like `Pesticide Matching for jsmith`.
+2.**Open the Task** which is last executed in the process. The task name depends on the goal of the task, but it should be something like `Segmented Fields for jsmith`.
 
 
 3.**Monitor the Task Status**: The task status will be displayed in the task details page. You can see if the task is running, completed, or failed. The page also provides information for 
