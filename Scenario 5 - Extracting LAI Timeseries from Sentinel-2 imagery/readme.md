@@ -1,14 +1,13 @@
 # Narrative
-*Sentinel-2's twin polar-orbiting satellites deliver 10-60m multispectral imagery every five days, capturing 13 spectral bands from visible to shortwave infrared. Among other the sensors record
+*Sentinel-2's twin polar-orbiting satellites deliver 10-60m multispectral imagery every five days, capturing 13 spectral bands from visible to shortwave infrared. Among other the sensors record bands that can be used to estimate the Leaf Area Index (LAI) of crops, which is a key indicator of crop health and productivity. In this scenario, we will extract LAI timeseries from Sentinel-2 imagery.*
 
 # Scenario Overview
 
-In the following scenario, we will utilize the **Field Segmentation** tool to segment crop fields in northern Austria using Sentinel-2 imagery. 
+In the following scenario, we will utilize the **Timeseries Extraction** tool to scan imagery of the 33UVP tile, from northern Austria, and extract the Leaf Area Index (LAI) timeseries from Sentinel-2 imagery. The tool will produce pixel-level LAI timeseries data, which can be used for various agricultural applications such as crop health monitoring and yield prediction.
 
 ### Involved Tools from STELAR Toolkit
 
--  <a class="btn btn-outline-primary" href="/stelar/console/v1/tool/field-segmentation" target="_blank">Field Segmentation</a> - A tool that segments crop fields over Sentinel-2 imagery. It outputs field polygons, which can be used for various agricultural applications such as crop classification and yield prediction.
-
+-  <a class="btn btn-outline-primary" href="/stelar/console/v1/tool/ts-extract" target="_blank">TS-Extract</a> - A tool used for extracting timeseries data from satellite imagery. It can process Sentinel-2 single-band imagery to extract various indices, including the Leaf Area Index (LAI) Pixel and Field Level Timeseries.
 
 ### Involed Features from STELAR KLMS Platform
 1. **Data Catalog**: Browse and select datasets relevant to food safety incidents.
@@ -26,8 +25,8 @@ In the following scenario, we will utilize the **Field Segmentation** tool to se
 ### Data Pipeline Overview
 
 <div style="text-align: center;">
-    <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%204%20-%20Segmenting%20Crop%20Fields%20for%20the%20Austrian%20North/images/field_segmentation.drawio.png" alt="Data Pipeline Overview" style="width:700px;">
-    <p><strong>Figure 1</strong>: Overview of the data pipeline for segmenting crop fields</p>
+    <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%205%20-%20Extracting%20LAI%20Timeseries%20from%20Sentinel-2%20imagery/images/ts-extract.png" alt="Data Pipeline Overview" style="width:700px;">
+    <p><strong>Figure 1</strong>: Overview of the data pipeline for extracting LAI timeseries per field per date.</p>
 </div>
 <br>
 
@@ -44,7 +43,7 @@ Browse to the <a name="button" class="btn btn-primary btn-pill py-1 px-3" href="
 In the left-hand panel, you may find facets to filter results with.
 
 
-- **Filter By Tags** - Check for **`Field Segmentation`** or **`Sentinel-2`**.
+- **Filter By Tags** - Check for **`TS-Extraction`** or **`LAI`** or **`Sentinel-2`**.
 <div style="text-align: center;">
     <img src="https://raw.githubusercontent.com/stelar-eu/walkthroughs/refs/heads/main/Scenario%201%20-%20Forecasting%20Food%20Safety%20Incidents/images/tags.png" alt="Data Catalog" style="width:250px;">
     <p><strong>Figure 2</strong>: Tags Facet option in the Data Catalog.</p>
@@ -65,8 +64,8 @@ In the left-hand panel, you may find facets to filter results with.
 
 **We suggest using any of the following datasets for this scenario.**
 
-1. <a href="/stelar/console/v1/catalog/tile-33uvp-reflectance-sentinel-2-imagery-2021" target="_blank">Tile 33UVP Reflectance Sentinel 2 Imagery 2021</a> - A dataset
-containing Sentinel-2 multi-band reflectance imagery for tile 33UVP, which can be used for field segmentation.
+1. <a href="/stelar/console/v1/catalog/tile-33uvp-lai-tifs-for-2021" target="_blank">Tile 33UVP LAI TIFs for 2021</a> - A dataset
+containing Sentinel-2 multiple LAI single band imagery for the 33UVP tile in Austria, covering the year 2021
 
 ---
 
@@ -85,7 +84,7 @@ containing Sentinel-2 multi-band reflectance imagery for tile 33UVP, which can b
 Download the Python Note by clicking the button below, Open it using any *Python IDE* or *Jupyter Notebook editor*.
 
 <div style="text-align: center;">
-    <a name="button" class="btn btn-primary btn-blue btn-pill py-1 px-3" href="https://github.com/stelar-eu/walkthroughs/blob/main/Scenario%204%20-%20Segmenting%20Crop%20Fields%20for%20the%20Austrian%20North/scenario4.ipynb" target="_blank" download>
+    <a name="button" class="btn btn-primary btn-blue btn-pill py-1 px-3" href="https://github.com/stelar-eu/walkthroughs/blob/main/Scenario%205%20-%20Extracting%20LAI%20Timeseries%20from%20Sentinel-2%20imagery/scenario5.ipynb" target="_blank" download>
     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  style="margin-right: 10px;"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9h-7a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h3" /><path d="M12 15h7a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-3" /><path d="M8 9v-4a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v5a2 2 0 0 1 -2 2h-4a2 2 0 0 0 -2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4" /><path d="M11 6l0 .01" /><path d="M13 18l0 .01" /></svg>
     Download Python Notebook</a>  
 </div>
@@ -119,8 +118,8 @@ print(f"Selected dataset: {dataset_n.id} | {dataset_n.title}")
 4.**Start a new Workflow Process**: Create a new workflow process to execute the task.
 ```python
 process = client.processes.create(
-    name="process-jsmith-field-segmentation",
-    title="Field Segmentation Process for John Smith",
+    name="process-jsmith-ts-extraction",
+    title="TS Extraction Process for John Smith",
     organization = c.organizations["stelar-klms"],
 )
 ```
@@ -155,14 +154,14 @@ t.d(alias="d0", dataset=dataset_n)  # Use the dataset object directly
 t.o(
     output_file =  {
         # Specify the output file name and location
-        "url": "s3://klms-bucket/experiments/lai-prediction/segmented_fields.gpkg",
+        "url": "s3://klms-bucket/experiments/lai-prediction/lai_timeseries_pixel.csv",
         # Specify the destination dataset for this resource
         "dataset": "d0"
         # Specify the resource metadata to be published after task completion
         "resource":{
-            "name": "Segmented Fields for Tile 33UVP",
+            "name": "LAI 2021 timeseries pixel level for Tile 33UVP",
             "format": "GeoPackage",
-            "description": "Segmented crop fields for tile 33UVP using Sentinel-2 imagery",
+            "description": "Curated LAI timeseries data extracted from Sentinel-2 imagery for 2021",
         }
     }
 )
@@ -176,7 +175,7 @@ t.p(
 6.**Execute the Task**: Execute the task using the STELAR client within a workflow process.
 
 ```python
-process = c.processes["process-jsmith-field-segmentation"]
+process = c.processes["process-jsmith-ts-extraction"]
 # The task is invoked in the process.
 task_obj = process.run(t)
 ```
@@ -193,7 +192,7 @@ Once the **task starts executing**, you can **monitor** its progress and status 
 </div>
   
 
-2.**Open the Task** which is last executed in the process. The task name depends on the goal of the task, but it should be something like `Segmented Fields for jsmith`.
+2.**Open the Task** which is last executed in the process. The task name depends on the goal of the task, but it should be something like `LAI timeseries for jsmith`.
 
 
 3.**Monitor the Task Status**: The task status will be displayed in the task details page. You can see if the task is running, completed, or failed. The page also provides information for 
