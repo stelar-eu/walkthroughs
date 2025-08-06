@@ -7,7 +7,8 @@ In the following scenario, we utilize **GenericNER** to analyze food recall anno
 
 ### Involved Tools from STELAR Toolkit
 
--  <a class="btn btn-outline-primary" href="/stelar/console/v1/tool/correlation-detective" target="_blank">Correlation Detective</a> - 
+-  <a class="btn btn-outline-primary" href="/stelar/console/v1/tool/generic-ner" target="_blank">Generic NER</a> - A tool for Named Entity Recognition that can be used to extract entities from text data, such as food recall announcements.
+
 ### Involed Features from STELAR KLMS Platform
 1. **Data Catalog**: Browse and select datasets relevant to food safety incidents.
 2. **Workflow Monitoring**: Monitor the execution of workflows and tasks.
