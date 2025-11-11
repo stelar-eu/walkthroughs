@@ -22,6 +22,13 @@ In the following scenario, we utilize **GenericNER** to analyze food recall anno
     Dataset Selection --> Tool Execution --> Execution Monitoring --> Output Artifacts Tracking
 </div>
 
+
+### Data Pipeline Overview
+
+<div style="text-align: center;">
+    Food Recall Announcements --> Generic NER Tool --> Annotated Food Entities Dataset
+</div>
+
 ---
 
 # Dataset Selection
